@@ -274,4 +274,4 @@ curl "http://site/download?file=../../flag.txt"
 ---
 
 ---
-*[⬅ К оглавлению курса](00-about.md)*
+*Уровень: **medium**. Рядом: [easy](easy.md) · [hard](hard.md) · [⬅ оглавление](../00-about.md)*

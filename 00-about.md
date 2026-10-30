@@ -21,22 +21,26 @@
 
 ## 📑 Оглавление курса
 
-Курс разбит по темам — по одному файлу на главу. Проходи по порядку.
+Курс разбит по темам — **одна папка на тему**, внутри три уровня сложности:
+**`easy.md`** (самая база, коротко) → **`medium.md`** (основной уровень) → **`hard.md`**
+(продвинутое, «на вырост» к региону). Новичок идёт `easy` всех тем, затем `medium`, и т.д.;
+либо берёт тему целиком снизу вверх.
 
-| Файл | Тема |
-|---|---|
-| `00-about.md` | О курсе (этот файл) |
-| `01-intro-ctf.md` | Что такое CTF и первые 60 секунд |
-| `02-linux.md` | Выживание в Linux (терминал) |
-| `03-python.md` | Python как швейцарский нож |
-| `04-crypto.md` | Криптография |
-| `05-forensics-stego.md` | Форензика и стеганография |
-| `06-web.md` | Web |
-| `07-networking.md` | Сети |
-| `08-reverse.md` | Реверс |
-| `09-pwn.md` | Pwn (ознакомительно) |
-| `10-misc.md` | Misc — разное |
-| `11-appendix.md` | Приложения A–D (шпаргалки, план на 2 недели) |
+| Тема (папка) | easy | medium | hard |
+|---|---|---|---|
+| `01-intro-ctf/` — Что такое CTF и стратегия тура | [✓](01-intro-ctf/easy.md) | [✓](01-intro-ctf/medium.md) | [✓](01-intro-ctf/hard.md) |
+| `02-linux/` — Терминал Linux | [✓](02-linux/easy.md) | [✓](02-linux/medium.md) | [✓](02-linux/hard.md) |
+| `03-python/` — Python | [✓](03-python/easy.md) | [✓](03-python/medium.md) | [✓](03-python/hard.md) |
+| `04-crypto/` — Криптография | [✓](04-crypto/easy.md) | [✓](04-crypto/medium.md) | [✓](04-crypto/hard.md) |
+| `05-forensics-stego/` — Форензика и стего | [✓](05-forensics-stego/easy.md) | [✓](05-forensics-stego/medium.md) | [✓](05-forensics-stego/hard.md) |
+| `06-web/` — Web | [✓](06-web/easy.md) | [✓](06-web/medium.md) | [✓](06-web/hard.md) |
+| `07-networking/` — Сети | [✓](07-networking/easy.md) | [✓](07-networking/medium.md) | [✓](07-networking/hard.md) |
+| `08-reverse/` — Реверс | [✓](08-reverse/easy.md) | [✓](08-reverse/medium.md) | [✓](08-reverse/hard.md) |
+| `09-pwn/` — Pwn | [✓](09-pwn/easy.md) | [✓](09-pwn/medium.md) | [✓](09-pwn/hard.md) |
+| `10-misc/` — Misc | [✓](10-misc/easy.md) | [✓](10-misc/medium.md) | [✓](10-misc/hard.md) |
+
+**Общие файлы (без уровней):** `00-about.md` (этот файл) · `11-appendix.md` (приложения A–D:
+шпаргалки, мастер-таблица, список ПО, план на 2 недели).
 
 ---
 

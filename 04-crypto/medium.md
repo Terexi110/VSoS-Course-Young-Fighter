@@ -713,4 +713,4 @@ print(m.to_bytes((m.bit_length() + 7) // 8, "big"))   # -> b'flag{cl0se_pr1mes_d
 ---
 
 ---
-*[⬅ К оглавлению курса](00-about.md)*
+*Уровень: **medium**. Рядом: [easy](easy.md) · [hard](hard.md) · [⬅ оглавление](../00-about.md)*

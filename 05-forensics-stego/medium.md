@@ -273,4 +273,4 @@ tshark -r dump.pcap -qz follow,tcp,ascii,0
 ---
 
 ---
-*[⬅ К оглавлению курса](00-about.md)*
+*Уровень: **medium**. Рядом: [easy](easy.md) · [hard](hard.md) · [⬅ оглавление](../00-about.md)*
