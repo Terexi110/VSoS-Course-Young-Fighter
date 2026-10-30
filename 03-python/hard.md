@@ -61,7 +61,14 @@ data[:16]        # первые 16 байт
 data[-8:]        # последние 8
 data[::-1]       # развернуть
 bytes(b ^ 0x42 for b in data)                # XOR всего с байтом
-bytes(a ^ b for a, b in zip(data, key_cycled))  # XOR с ключом
+bytes(a ^ b for a, b in zip(data, cycle(b"KEY")))  # XOR с повторяющимся ключом (нужен from itertools import cycle)
+```
+
+Канонический перебор однобайтового XOR с фильтром по флагу (держи в пальцах):
+```python
+for k in range(256):
+    res = bytes(b ^ k for b in data)
+    if b"flag" in res: print(k, res)
 ```
 
 ## 6. Полезные модули стандартной библиотеки
@@ -72,6 +79,8 @@ import gzip;    gzip.decompress(data)         # gzip
 import binascii; binascii.unhexlify("4142")   # hex → байты (аналог bytes.fromhex)
 import hashlib; hashlib.sha256(b"x").hexdigest()
 import codecs;  codecs.decode("uryyb","rot13") # ROT13 для текста
+import ast;     ast.literal_eval("[102,108,97,103]")  # строку-литерал → список/байты (безопасно)
+from urllib.parse import unquote; unquote("%7Bflag%7D")  # URL-декод (%7B→{) — частое в web/логах
 ```
 
 ## 7. Шаблон универсальной «решалки»

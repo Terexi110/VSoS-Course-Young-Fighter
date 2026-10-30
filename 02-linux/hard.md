@@ -39,6 +39,11 @@ grep -o . файл | sort | uniq -c | sort -rn | head
 #       ^ разбить на символы  ^ посчитать повторы  ^ по убыванию
 ```
 
+💡 На кириллице/UTF-8 `grep -o .` иногда сбоит на многобайтовых символах — надёжнее `fold -w1`:
+```bash
+fold -w1 файл | sort | uniq -c | sort -rn | head
+```
+
 ## 5. `tr` — быстрые преобразования и ROT13
 
 ```bash
@@ -56,10 +61,18 @@ printf '%x\n' 255    # dec → hex  →  ff
 printf '%o\n' 8      # dec → oct  →  10
 ```
 
+hex-строка ↔ байты и разворот строки — тоже без Python:
+```bash
+echo '666c61677b6865787d' | xxd -r -p   # hex-строка → flag{hex}
+echo -n 'flag{hex}' | xxd -p            # байты → hex
+echo '}galf{' | rev                     # перевернуть строку → {flag}
+```
+
 ## 7. `find` + `xargs` — массовые операции
 
 ```bash
-find . -type f | xargs grep -l flag          # найти все файлы с flag внутри
+find . -type f -print0 | xargs -0 grep -l flag   # -print0/-0 = безопасно для имён с пробелами
+# (то же самое короче и безопаснее: grep -rl flag .)
 find . -name '*.zip' -exec unzip {} \;       # распаковать все zip
 find . -type f -size +1M                     # файлы больше 1 МБ (где прячут вложения)
 ```
@@ -83,7 +96,7 @@ for k in $(seq 0 255); do                     # перебрать ключи 0.
     # ... тут твоя команда с $k ...
 done
 
-while read line; do echo "строка: $line"; done < файл   # по строкам файла
+while IFS= read -r line; do echo "строка: $line"; done < файл   # IFS= и -r = не терять пробелы и обратные слеши
 ```
 
 ## 10. Свои функции (чтобы не повторяться)
@@ -91,7 +104,8 @@ while read line; do echo "строка: $line"; done < файл   # по стр�
 Положи в `~/.bashrc` и получишь команду на все сессии:
 
 ```bash
-ctfscan() { file "$1"; strings -n 5 "$1" | grep -iE 'flag|\{.*\}'; xxd "$1" | head; }
+ctfscan() { file "$1"; strings -n 5 "$1" | grep -iE 'flag|\{.*\}'; strings -e l "$1" | grep -iE 'flag|\{.*\}'; xxd "$1" | head; }
+#  strings -e l дополнительно ловит строки в UTF-16LE (Windows-бинарники и дампы памяти)
 # использование: ctfscan задача.bin
 ```
 

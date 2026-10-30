@@ -21,6 +21,10 @@ io.recvuntil(b"result: ")
 n = int(io.recvline().strip())   # вытащили число, которое прислал сервер
 ```
 
+💡 Фишки, которых нет на medium:
+- `context.log_level = 'debug'` — печатает ВСЕ отправленные/принятые байты (главный отладчик сетевых скриптов).
+- `p64()/p32()` и `u64()/u32()` — встроенные обёртки над `struct.pack/unpack` (мостик к pwn, глава 9).
+
 ## 2. Proof-of-Work (очень частое начало задач)
 
 Сервер часто требует: «пришли строку X, чтобы `sha256(префикс + X)` начинался с нулей». Решается
@@ -84,6 +88,18 @@ while True:
     # распарсить задачу из line, посчитать ответ:
     ans = str(eval(line.split(b"=")[0].decode())).encode()   # eval только для доверенного формата!
     f.write(ans + b"\n"); f.flush()
+```
+
+⚠️ Если сервер пишет приглашение **без `\n`** (`Enter answer: ` и ждёт ввода на той же строке),
+`f.readline()` зависнет навсегда. Тогда читай до подстроки по одному байту:
+```python
+def recv_until(sock, delim=b": "):
+    buf = b""
+    while not buf.endswith(delim):
+        ch = sock.recv(1)
+        if not ch: break
+        buf += ch
+    return buf
 ```
 
 ## 5. Крафт пакетов (scapy) — 🔺

@@ -17,8 +17,7 @@ h, w, _ = img.shape
 for ch in range(3):                         # каналы R,G,B
     for bit in range(8):                     # биты 0..7
         plane = (img[:, :, ch] >> bit) & 1   # вытащить нужный бит каждого пикселя
-        bits = "".join(map(str, plane.flatten()))
-        data = bytes(int(bits[i:i+8], 2) for i in range(0, len(bits)-7, 8))
+        data = np.packbits(plane).tobytes()  # мгновенно собрать биты в байты (вместо медленного join)
         m = re.search(rb'flag\{[^}]+\}', data)
         if m:
             print(f"канал={ch} бит={bit}:", m.group())
@@ -55,6 +54,17 @@ print(png_chunks(open("img.png","rb").read()))
 картинки не рисуется. Исправляешь байты размеров в `IHDR` (первые 8 байт данных чанка: 4 ширина, 4
 высота, big-endian) — и флаг проявляется. Проверяй через `pngcheck -v`.
 
+💡 Поменял ширину/высоту — пересчитай CRC чанка IHDR, иначе просмотрщики откажутся открывать файл:
+```python
+import zlib, struct
+d = open("img.png", "rb").read()
+w, h = 800, 600                                  # настоящие размеры
+ihdr = struct.pack(">II", w, h) + d[24:29]       # width,height + остальные 5 байт IHDR
+crc  = zlib.crc32(b"IHDR" + ihdr)                # CRC = от типа чанка + его данных
+fixed = d[:16] + ihdr + struct.pack(">I", crc) + d[33:]
+open("fixed.png", "wb").write(fixed)
+```
+
 ## 3. Полиглоты и приклеенные файлы
 
 Файл может быть сразу двух форматов (полиглот) или нести хвост после своего конца:
@@ -75,6 +85,7 @@ tshark -r d.pcap -Y 'dns' -T fields -e dns.qry.name                             
 tshark -r d.pcap -Y 'ftp' -T fields -e ftp.request.command -e ftp.request.arg   # логины FTP
 tshark -r d.pcap --export-objects http,out_dir                                   # вытащить переданные файлы
 tshark -r d.pcap -qz follow,tcp,ascii,3                                          # тело TCP-потока №3
+tshark -r usb.pcap -T fields -e usbhid.data -e usb.capdata                        # нажатия USB-клавиатуры/мыши (HID)
 ```
 
 💡 Данные часто разбиты по пакетам и закодированы (Base64/hex) — собери поток целиком (Follow Stream /
@@ -88,17 +99,24 @@ tshark -r d.pcap -qz follow,tcp,ascii,3                                         
 ```python
 import numpy as np, wave, matplotlib
 matplotlib.use("Agg"); import matplotlib.pyplot as plt
-w = wave.open("a.wav"); fr = w.getframerate()
-sig = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16)
+w = wave.open("a.wav"); fr = w.getframerate(); ch = w.getnchannels()
+sig = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16)[::ch]  # [::ch] → один канал (стерео в моно)
 plt.specgram(sig, Fs=fr); plt.savefig("spec.png")       # открыть spec.png — флаг виден надписью
 ```
 Либо в GUI: **Audacity** / **Sonic Visualiser** → режим спектрограммы.
 
-## 6. Стего с паролем — перебор
+## 6. Образы дисков и файловых систем
+
+Дали `.img`/`.dd`/`.raw` (образ диска) — внутри файловая система, часто с «удалёнными» файлами:
 
 ```bash
-stegseek картинка.jpg words.txt      # быстрый перебор пароля steghide по словарю
+7z l disk.img                      # просто посмотреть содержимое (часто уже хватает)
+mount -o loop,ro disk.img /mnt     # примонтировать только на чтение
+# пакет sleuthkit — анализ ФС и удалённых файлов:
+fls -r disk.img                    # список файлов, включая удалённые (помечены *)
+icat disk.img <inode>              # вытащить файл по номеру inode
 ```
+(Перебор пароля `steghide` словарём — `stegseek` — уже был в `medium.md` §5.5.)
 
 🎯 **Тренировка (hard).** (а) Зашей флаг в бит №3 зелёного канала картинки и достань его перебором
 каналов/битов. (б) Распарси чанки своего PNG и припиши после `IEND` текст — убедись, что скрипт его

