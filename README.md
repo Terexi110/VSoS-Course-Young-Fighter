@@ -40,16 +40,17 @@ Python + немного C/C++. Потолок - муниципальный эт�
 03-python/      easy.md medium.md hard.md      <- Python
 04-crypto/      easy.md medium.md hard.md      <- Криптография (самая большая тема)
 05-forensics-stego/ easy.md medium.md hard.md  <- Форензика и стего
-06-web/         easy.md medium.md hard.md      <- Web
+06-web/         easy.md medium.md hard.md      <- Web (+ burpsuite.md, web-tools.md, lab/stand.py)
 07-networking/  easy.md medium.md hard.md      <- Сети
-08-reverse/     easy.md medium.md hard.md      <- Реверс
+07a-cpp/        easy.md medium.md hard.md      <- C/C++ (подводка к реверсу/pwn)
+08-reverse/     easy.md medium.md hard.md      <- Реверс (+ ghidra.md, lab/crackme2.c)
 09-pwn/         easy.md medium.md hard.md      <- Pwn
 10-misc/        easy.md medium.md hard.md      <- Misc
 11-appendix.md         <- приложения A-D: шпаргалки, мастер-таблица, список ПО, план на 2 недели
 AGENTS.md  CLAUDE.md  README.md
 ```
 
-Тренировки (🎯) идут внутри каждого файла; в medium - сквозная нумерация 1-23.
+Тренировки (🎯) идут внутри каждого файла; в medium - сквозная нумерация 1-26.
 
 ## 5. Договорённости по стилю (соблюдать при доработке)
 

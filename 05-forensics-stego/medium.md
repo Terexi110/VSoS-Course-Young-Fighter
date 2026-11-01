@@ -97,10 +97,10 @@ open("carved.zip", "wb").write(data[idx:])   # вырезаем всё от си
 # теперь: unzip carved.zip
 ```
 
-💡 Вырезанный архив часто запаролен словарным паролем - ломается перебором:
+💡 Вырезанный архив часто запаролен словарным паролем - ломается перебором (в образе есть `john`):
 ```bash
-fcrackzip -u -D -p wordlist.txt carved.zip
-# или: zip2john carved.zip > hash.txt && john hash.txt --wordlist=wordlist.txt
+zip2john carved.zip > hash.txt && john hash.txt --wordlist=wordlist.txt
+# john hash.txt --show  # показать найденный пароль; перебор без утилит - на zipfile (10-misc medium)
 ```
 
 💡 Самый быстрый "детектор склейки": `strings image.png | grep flag`. Если флаг дописан текстом в

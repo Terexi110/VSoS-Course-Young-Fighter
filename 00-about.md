@@ -35,12 +35,20 @@
 | `05-forensics-stego/` - Форензика и стего | [+](05-forensics-stego/easy.md) | [+](05-forensics-stego/medium.md) | [+](05-forensics-stego/hard.md) |
 | `06-web/` - Web | [+](06-web/easy.md) | [+](06-web/medium.md) | [+](06-web/hard.md) |
 | `07-networking/` - Сети | [+](07-networking/easy.md) | [+](07-networking/medium.md) | [+](07-networking/hard.md) |
+| `07a-cpp/` - C и C++ (подводка к реверсу/pwn) | [+](07a-cpp/easy.md) | [+](07a-cpp/medium.md) | [+](07a-cpp/hard.md) |
 | `08-reverse/` - Реверс | [+](08-reverse/easy.md) | [+](08-reverse/medium.md) | [+](08-reverse/hard.md) |
 | `09-pwn/` - Pwn | [+](09-pwn/easy.md) | [+](09-pwn/medium.md) | [+](09-pwn/hard.md) |
 | `10-misc/` - Misc | [+](10-misc/easy.md) | [+](10-misc/medium.md) | [+](10-misc/hard.md) |
 
 **Общие файлы (без уровней):** `00-about.md` (этот файл) и `11-appendix.md` (приложения A-D:
 шпаргалки, мастер-таблица, список ПО, план на 2 недели).
+
+**Дополнительные разборы инструментов** (читать после `medium` своей темы):
+- [`08-reverse/ghidra.md`](08-reverse/ghidra.md) - Ghidra от создания проекта до патча, со скриншотами;
+- [`06-web/burpsuite.md`](06-web/burpsuite.md) - Burp Suite и его замена на `curl`/`requests`;
+- [`06-web/web-tools.md`](06-web/web-tools.md) - nmap, ffuf, dirsearch, nikto, sqlmap и замены на Python.
+
+Учебные файлы для тренировок лежат в папках `lab/` (стенд для веба, крякми для реверса).
 
 ---
 

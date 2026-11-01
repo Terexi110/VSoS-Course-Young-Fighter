@@ -58,7 +58,7 @@ ip addr; ip route; ping IP               # сетевая диагностика
 **Архивы:**
 ```bash
 unzip a.zip; tar -xf a.tar; 7z x a.7z    # распаковка
-fcrackzip -u -D -p words.txt a.zip       # перебор пароля zip
+zip2john a.zip > h.txt && john h.txt --wordlist=words.txt   # пароль zip: вытащить хеш и подобрать
 ```
 
 ---
@@ -185,8 +185,8 @@ print(s.recv(1024))
 | ELF/.exe | Reverse | `strings` -> `ltrace` -> Ghidra (`main`) |
 | `.py/.js` скрипт | Reverse | читать; `print()` перед проверкой |
 | бинарник + порт, нет проверки длины | Pwn | переполнение буфера |
-| `01001000...` / Морзе / QR | Misc | перевести в текст (Python/`zbarimg`) |
-| запароленный архив | Misc | `fcrackzip`, искать пароль рядом |
+| `01001000...` / Морзе / QR | Misc | перевести в текст (Python; QR - телефон или `qr`/декодер) |
+| запароленный архив | Misc | `zip2john`+`john` (или `zipfile`), пароль искать рядом |
 
 ---
 
@@ -202,11 +202,12 @@ print(s.recv(1024))
 - `exiftool`, `zsteg`, `steghide`, `stegseek`, `pngcheck`
 - `wireshark`, `tshark`, `nc`, `curl`
 - `ghidra`, `ltrace`/`strace`, `objdump`
-- `unzip`, `7z`, `fcrackzip`, `zbarimg`
+- `unzip`, `7z`, `john` (+`zip2john`/`rar2john`) - пароли архивов
+- `openssl`, `ssh`/`scp`, `hydra` (перебор сетевых логинов), `qr` (генерация QR); `zbarimg` - если есть
 
 Проверка одной строкой:
 ```bash
-for t in python3 gcc file strings binwalk exiftool zsteg steghide wireshark nc curl ghidra unzip 7z; do
+for t in python3 gcc file strings binwalk exiftool zsteg steghide wireshark nc curl ghidra unzip 7z john openssl ssh qr; do
     command -v $t >/dev/null && echo "+ $t" || echo " НЕТ: $t"
 done
 ```

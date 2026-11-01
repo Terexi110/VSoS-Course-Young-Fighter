@@ -59,18 +59,28 @@
 03-python/       {easy,medium,hard}.md
 04-crypto/       {easy,medium,hard}.md     <- самая большая тема
 05-forensics-stego/ {easy,medium,hard}.md
-06-web/          {easy,medium,hard}.md
+06-web/          {easy,medium,hard}.md + burpsuite.md, web-tools.md, lab/stand.py, img/
 07-networking/   {easy,medium,hard}.md
-08-reverse/      {easy,medium,hard}.md
+07a-cpp/         {easy,medium,hard}.md   <- C/C++: подводка к реверсу и pwn
+08-reverse/      {easy,medium,hard}.md + ghidra.md, lab/crackme2.c, img/
 09-pwn/          {easy,medium,hard}.md
 10-misc/         {easy,medium,hard}.md
 11-appendix.md              <- приложения A-D (без уровней)
 AGENTS.md  CLAUDE.md  README.md
 ```
 
+Кроме уровней, в теме могут быть **разборы инструментов** (`ghidra.md`, `burpsuite.md`,
+`web-tools.md`): тот же стиль, но без нумерации глав; у каждого инструмента - замена на `curl`/Python.
+Учебные файлы для тренировок (стенды, крякми) лежат в `lab/` своей темы; примеры в тексте проверяются
+именно на них. Картинки - в `img/`, там же `HOWTO-screenshots.md` с перечнем нужных кадров.
+
 Ключевой сквозной навык - **читать алгоритм шифрования/проверки и писать к нему дешифратор**
 (обращать операции в обратном порядке; где трудно - перебор каждого байта 0..255). Связывает
 `04-crypto` и `08-reverse`.
+
+Папка `07a-cpp/` - подводка по C/C++ (тот же формат easy/medium/hard): ровно столько
+языка, чтобы читать псевдокод в `08-reverse` и понимать буферы/стек в `09-pwn`. Разделы внутри неё
+нумеруются локально, тренировки безномерные - сквозную нумерацию medium (1-26) она не трогает.
 
 ## Как проверять примеры кода (обязательно)
 
