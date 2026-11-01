@@ -46,7 +46,7 @@ Python + немного C/C++. Потолок - муниципальный эт�
 08-reverse/     easy.md medium.md hard.md      <- Реверс (+ ghidra.md, lab/crackme2.c)
 09-pwn/         easy.md medium.md hard.md      <- Pwn
 10-misc/        easy.md medium.md hard.md      <- Misc
-11-appendix.md         <- приложения A-D: шпаргалки, мастер-таблица, список ПО, план на 2 недели
+11-appendix.md         <- приложения A-E: шпаргалки, мастер-таблица, список ПО, план на 2 недели, онлайн-тренажёры
 AGENTS.md  CLAUDE.md  README.md
 ```
 

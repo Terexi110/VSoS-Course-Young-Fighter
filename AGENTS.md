@@ -65,7 +65,7 @@
 08-reverse/      {easy,medium,hard}.md + ghidra.md, lab/crackme2.c, img/
 09-pwn/          {easy,medium,hard}.md
 10-misc/         {easy,medium,hard}.md
-11-appendix.md              <- приложения A-D (без уровней)
+11-appendix.md              <- приложения A-E (без уровней)
 AGENTS.md  CLAUDE.md  README.md
 ```
 
